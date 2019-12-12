@@ -180,10 +180,10 @@ const inquirer = require("inquirer");
 
 //Set-up modeled from Paul H repository
 
-const employee = require("./lib/employee");
-const engineer = require("./lib/engineer");
-const intern = require("./lib/intern");
-const manager = require("./lib/manager");
+const Employee = require("./employee");
+const Engineer = require("./engineer");
+const Intern = require("./intern");
+const Manager = require("./manager");
 const teamMembers = [];
 
 
@@ -193,21 +193,108 @@ function askQuestion() {
     .prompt([
       {
         type: "input",
-        message: "How big is it?",
-        name: "dave"
+        message: "What is your name?",
+        name: "name"
       },
       {
         type: "input",
-        message: "What is your nieces name?",
-        name: "niecesName"
+        message: "What is your ID?",
+        name: "id"
       },
       {
         type: "input",
-        message: "Why are you late?",
-        name: "late"
+        message: "what is your email",
+        name: "email"
+      },
+      {
+        type: "list",
+        message: "What type of employee are you?",
+        name: "employeeType",
+        choices: ["Intern", "Engineer", "Manager"],
       }
     ])
     .then(function(response) {
       console.log(response);
+      console.log(response.name);
+      console.log(response.id);
+      console.log(response.email);
+
+      // const newEE = new Employee(response.name, response.id, response.email);
+
+      // console.log(newEE);
+      internQuestion(response);
+      engineerQuestion(response);
+      managerQuestion(response);
     });
 }
+
+function internQuestion(input) {
+  inquirer.prompt([
+
+    {
+      type: "input",
+      message: "Where did you go to school?",
+      name: "school"
+    }
+
+  ])
+    .then(function(response) {
+      console.log("response", response);
+      console.log("input",input)
+
+      const newIntern = new Intern(input.name, input.id, input.email, response.school);
+
+      console.log(newIntern);
+    })
+}
+
+function engineerQuestion(input) {
+  inquirer.prompt([
+
+    {
+      type: "input",
+      message: "What is your github username?",
+      name: "username"
+    }
+
+  ])
+    .then(function(response) {
+      console.log("response", response);
+      console.log("input",input)
+
+      const newEngineer = new Engineer(input.name, input.id, input.email, response.username);
+
+      console.log(newEngineer);
+    })
+}
+
+function managerQuestion(input) {
+  inquirer.prompt([
+
+    {
+      type: "input",
+      message: "What is your office number?",
+      name: "officeNumber"
+    }
+
+  ])
+    .then(function(response) {
+      console.log("response", response);
+      console.log("input",input)
+
+      const newManager = new Manager(input.name, input.id, input.email, response.officerNumber);
+
+      console.log(newManager);
+    })
+}
+
+
+askQuestion( )
+
+// fs.writeFile('index.html', html, (err) => {
+
+//     if (err) throw err;
+
+//     console.log("Success! Here is your info.");
+
+// })
