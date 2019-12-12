@@ -178,6 +178,14 @@
 const fs = require("fs");
 const inquirer = require("inquirer");
 
+//Set-up modeled from Paul H repository
+
+const employee = require("./lib/employee");
+const engineer = require("./lib/engineer");
+const intern = require("./lib/intern");
+const manager = require("./lib/manager");
+const teamMembers = [];
+
 
 
 function askQuestion() {
