@@ -254,6 +254,31 @@ function internQuestion(input) {
       );
 
       console.log(newIntern);
+
+        let html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <p>Name: ${newIntern.name}</p>
+    <p>ID: ${newIntern.id}</p>
+    <p>Email: ${newIntern.email}</p>
+    <p>School: ${newIntern.school}</p>
+</body>
+</html>`
+
+console.log(html);
+
+fs.writeFile('index.html', html, (err) => {
+
+    if (err) throw err;
+
+    console.log("Success! Here is your info.");
+
+})
+
     });
 }
 
@@ -278,6 +303,31 @@ function engineerQuestion(input) {
       );
 
       console.log(newEngineer);
+
+        let html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <p>Name: ${newEngineer.name}</p>
+    <p>ID: ${newEngineer.id}</p>
+    <p>Email: ${newEngineer.email}</p>
+    <p>GitHub: ${newEngineer.github}</p>
+</body>
+</html>`
+
+console.log(html);
+
+fs.writeFile('index.html', html, (err) => {
+
+    if (err) throw err;
+
+    console.log("Success! Here is your info.");
+
+})
+
     });
 }
 
@@ -301,7 +351,32 @@ function managerQuestion(input) {
         response.officeNumber
       );
 
-      // console.log(newManager);
+      console.log(newManager);
+
+      let html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <p>Name: ${newManager.name}</p>
+    <p>ID: ${newManager.id}</p>
+    <p>Email: ${newManager.email}</p>
+    <p>Office Number: ${newManager.officeNumber}</p>
+</body>
+</html>`
+
+console.log(html);
+
+fs.writeFile('index.html', html, (err) => {
+
+    if (err) throw err;
+
+    console.log("Success! Here is your info.");
+
+})
+
       makeHtml(newManager)
     });
 }
@@ -314,10 +389,5 @@ function makeHtml(input){
 }
 askQuestion();
 
-// fs.writeFile('index.html', html, (err) => {
 
-//     if (err) throw err;
 
-//     console.log("Success! Here is your info.");
-
-// })
