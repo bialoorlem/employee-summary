@@ -2,7 +2,6 @@
 
 // One of the most important aspects of programming is writing code that is readable, reliable, and maintainable. Oftentimes, *how* we design our code is just as important as the code itself. In this homework assignment, your challenge is to build a Node CLI that takes in information about employees and generates an HTML webpage that displays summaries for each person. Since testing is a key piece in making code maintainable, you will also be ensuring that all unit tests pass.
 
-
 // ## Instructions
 
 // You will build a software engineering team generator command line application. The application will prompt the user for information about the team manager and then information about the team members. The user can input any number of team members, and they may be a mix of engineers and interns. This assignment must also pass all unit tests. When the user has completed building the team, the application will create an HTML file that displays a nicely formatted team roster based on the information provided by the user. Following the [common templates for user stories](https://en.wikipedia.org/wiki/User_story#Common_templates), we can frame this challenge as follows:
@@ -59,9 +58,9 @@
 //   * `main.html`
 
 //   * `engineer.html`
-  
+
 //   * `intern.html`
-  
+
 //   * `manager.html`
 
 // * You will want to make your methods as pure as possible. This means try to make your methods simple so that they are easier to test.
@@ -95,7 +94,7 @@
 //   * getEmail()
 //   * getRole() // Returns 'Employee'
 
-// The other three classes will extend `Employee`. 
+// The other three classes will extend `Employee`.
 
 // In addition to `Employee`'s properties and methods, `Manager` will also have:
 
@@ -113,7 +112,7 @@
 
 // In addition to `Employee`'s properties and methods, `Intern` will also have:
 
-//   * school 
+//   * school
 
 //   * getSchool()
 
@@ -162,7 +161,6 @@
 
 // We would like you to have well over 200 commits by graduation, so commit early and often!
 
-
 // ## Submission on BCS
 
 // You are required to submit the following:
@@ -173,7 +171,6 @@
 
 // - - -
 // © 2019 Trilogy Education Services, a 2U, Inc. brand. All Rights Reserved.
-
 
 const fs = require("fs");
 const inquirer = require("inquirer");
@@ -186,8 +183,6 @@ const Intern = require("./intern");
 const Manager = require("./manager");
 const teamMembers = [];
 
-
- 
 function askQuestion() {
   inquirer
     .prompt([
@@ -210,7 +205,7 @@ function askQuestion() {
         type: "list",
         message: "What type of employee are you?",
         name: "employeeType",
-        choices: ["Intern", "Engineer", "Manager"],
+        choices: ["Intern", "Engineer", "Manager"]
       }
     ])
     .then(function(response) {
@@ -222,74 +217,102 @@ function askQuestion() {
       // const newEE = new Employee(response.name, response.id, response.email);
 
       // console.log(newEE);
-      internQuestion(response);
-      engineerQuestion(response);
-      managerQuestion(response);
+      switch (response.employeeType) {
+        case "Intern":
+          internQuestion(response);
+          return;
+        case "Engineer":
+          engineerQuestion(response);
+          return;
+        case "Manager":
+          managerQuestion(response);
+          return;
+        default:
+          return;
+      }
     });
 }
 
 function internQuestion(input) {
-  inquirer.prompt([
-
-    {
-      type: "input",
-      message: "Where did you go to school?",
-      name: "school"
-    }
-
-  ])
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        message: "Where did you go to school?",
+        name: "school"
+      }
+    ])
     .then(function(response) {
       console.log("response", response);
-      console.log("input",input)
+      console.log("input", input);
 
-      const newIntern = new Intern(input.name, input.id, input.email, response.school);
+      const newIntern = new Intern(
+        input.name,
+        input.id,
+        input.email,
+        response.school
+      );
 
       console.log(newIntern);
-    })
+    });
 }
 
 function engineerQuestion(input) {
-  inquirer.prompt([
-
-    {
-      type: "input",
-      message: "What is your github username?",
-      name: "username"
-    }
-
-  ])
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        message: "What is your github username?",
+        name: "username"
+      }
+    ])
     .then(function(response) {
       console.log("response", response);
-      console.log("input",input)
+      console.log("input", input);
 
-      const newEngineer = new Engineer(input.name, input.id, input.email, response.username);
+      const newEngineer = new Engineer(
+        input.name,
+        input.id,
+        input.email,
+        response.username
+      );
 
       console.log(newEngineer);
-    })
+    });
 }
 
 function managerQuestion(input) {
-  inquirer.prompt([
-
-    {
-      type: "input",
-      message: "What is your office number?",
-      name: "officeNumber"
-    }
-
-  ])
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        message: "What is your office number?",
+        name: "officeNumber"
+      }
+    ])
     .then(function(response) {
       console.log("response", response);
-      console.log("input",input)
+      console.log("input", input);
 
-      const newManager = new Manager(input.name, input.id, input.email, response.officerNumber);
+      const newManager = new Manager(
+        input.name,
+        input.id,
+        input.email,
+        response.officeNumber
+      );
 
-      console.log(newManager);
-    })
+      // console.log(newManager);
+      makeHtml(newManager)
+    });
 }
 
 
-askQuestion( )
+function makeHtml(input){
+  console.log(input)
+  // make html based on input and save to variable
+  // write the html to a new file
+}
+askQuestion();
 
 // fs.writeFile('index.html', html, (err) => {
 
