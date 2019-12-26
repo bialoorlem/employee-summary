@@ -183,6 +183,24 @@ const Intern = require("./intern");
 const Manager = require("./manager");
 const teamMembers = [];
 
+   let html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body>
+<div class="container h-100">
+  <div class="row h-100 justify-content-center align-items-center">
+    <div class="card"  style="width: 18rem;">
+     
+</div>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>   
+</body>
+</html>`
 function askQuestion() {
   inquirer
     .prompt([
@@ -213,6 +231,7 @@ function askQuestion() {
       console.log(response.name);
       console.log(response.id);
       console.log(response.email);
+      
 
       // const newEE = new Employee(response.name, response.id, response.email);
 
@@ -243,8 +262,8 @@ function internQuestion(input) {
       }
     ])
     .then(function(response) {
-      console.log("response", response);
-      console.log("input", input);
+     // console.log("response", response);
+   //   console.log("input", input);
 
       const newIntern = new Intern(
         input.name,
@@ -253,43 +272,32 @@ function internQuestion(input) {
         response.school
       );
 
-      console.log(newIntern);
+      //console.log(newIntern);
 
-        let html = `<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-</head>
-<body>
-<div class="container h-100">
-  <div class="row h-100 justify-content-center align-items-center">
-    <div class="card"  style="width: 18rem;">
+        let internInfo = `
       <div class="card-body">
-        <h5 class="card-title">Manager</h5>
+        <h5 class="card-title"></h5>
         <p class="card-text">Name: ${newIntern.name}</p>
         <p class="card-text">ID: ${newIntern.id}</p>
         <p class="card-text">Email: ${newIntern.email}</p>
         <p class="card-text">Office Number: ${newIntern.school}</p>
-      </div>
-    </div>
-</div>
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>   
-</body>
-</html>`
+      </div>`
 
-console.log(html);
+ 
 
-fs.writeFile('index.html', html, (err) => {
 
-    if (err) throw err;
+ fs.readFile('index.html', 'utf8', function (err,data) {
+  if (err) {
+    return console.log(err);
+  }
 
-    console.log("Success! Here is your info.");
+  
+  let result = data.replace(/\<\/body>/g, internInfo + '</body>');
 
-})
+  fs.writeFile('index.html', result, 'utf8', function (err) {
+     if (err) return console.log(err);
+  });
+});
 
     });
 }
@@ -316,41 +324,29 @@ function engineerQuestion(input) {
 
       console.log(newEngineer);
 
-        let html = `<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-</head>
-<body>
-<div class="container h-100">
-  <div class="row h-100 justify-content-center align-items-center">
-    <div class="card"  style="width: 18rem;">
+        let enginnerInfo = `
       <div class="card-body">
-        <h5 class="card-title">Manager</h5>
+        <h5 class="card-title"></h5>
         <p class="card-text">Name: ${newEngineer.name}</p>
         <p class="card-text">ID: ${newEngineer.id}</p>
         <p class="card-text">Email: ${newEngineer.email}</p>
         <p class="card-text">Office Number: ${newEngineer.github}</p>
-      </div>
-    </div>
-</div>
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>   
-</body>
-</html>`
+      </div>`
 
-console.log(html);
+//console.log(html);
 
-fs.writeFile('index.html', html, (err) => {
+ fs.readFile('index.html', 'utf8', function (err,data) {
+  if (err) {
+    return console.log(err);
+  }
 
-    if (err) throw err;
+  
+  let result = data.replace(/\<\/body>/g, enginnerInfo + '</body>');
 
-    console.log("Success! Here is your info.");
-
-})
+  fs.writeFile('index.html', result, 'utf8', function (err) {
+     if (err) return console.log(err);
+  });
+});
 
     });
 }
@@ -377,41 +373,31 @@ function managerQuestion(input) {
 
       console.log(newManager);
 
-      let html = `<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-</head>
-<body>
-<div class="container h-100">
-  <div class="row h-100 justify-content-center align-items-center">
-    <div class="card"  style="width: 18rem;">
+      let managerInfo = `
+
       <div class="card-body">
-        <h5 class="card-title">Manager</h5>
+        <h5 class="card-title"></h5>
         <p class="card-text">Name: ${newManager.name}</p>
         <p class="card-text">ID: ${newManager.id}</p>
         <p class="card-text">Email: ${newManager.email}</p>
         <p class="card-text">Office Number: ${newManager.officeNumber}</p>
       </div>
-    </div>
-</div>
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>   
-</body>
-</html>`
+`
 
-console.log(html);
+//console.log(html);
 
-fs.writeFile('index.html', html, (err) => {
+ fs.readFile('index.html', 'utf8', function (err,data) {
+  if (err) {
+    return console.log(err);
+  }
 
-    if (err) throw err;
+  
+  let result = data.replace(/\<\/body>/g, managerInfo + '</body>');
 
-    console.log("Success! Here is your info.");
-
-})
+  fs.writeFile('index.html', result, 'utf8', function (err) {
+     if (err) return console.log(err);
+  });
+});
 
       makeHtml(newManager)
     });
